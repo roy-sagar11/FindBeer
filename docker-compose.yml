@@ -1,0 +1,41 @@
+version: "3.7"
+
+services:
+  client:
+    image: beer-client:latest
+    container_name: beer-client
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile.dev
+    restart: always
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    volumes:
+      - ./client:/usr/src/app/
+      - /usr/src/app/node_modules
+    networks:
+      - compose
+  
+  server:
+    image: beer-api:latest
+    container_name: beer-api
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile.dev
+    restart: always
+    ports:
+      - "4000:4000"
+    expose:
+      - "4000"
+    volumes:
+      - ./server:/usr/src/app/
+      - /urs/src/app/node_modules
+    networks:
+      - compose
+
+networks:
+  compose:
+    name: "common-app"
+    driver: "bridge"
