@@ -11,4 +11,4 @@ default:
 
 run-local-development:
 	@echo "+\n++ Starting local development server \n+"
-	@docker-compose up
+	@docker-compose up --build
